@@ -5,8 +5,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usuariosRouter = require('./routes/usuarios');
+let indexRouter = require('./routes/index');
+let usuariosRouter = require('./routes/usuarios');
+let loginRouter = require('./routes/login');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //RUTAS
 app.use('/', indexRouter);
 app.use('/usuarios', usuariosRouter);
+app.use('/login', loginRouter);
 
 
 // Conexión DB
