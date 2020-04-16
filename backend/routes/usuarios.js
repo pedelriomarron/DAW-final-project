@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
 let Visitante = require('../models/usuario')
+let SEED = require('../config/config').SEED
+let jwt = require('jsonwebtoken');
 
+let mdAutenticacion = require('../middlewares/autenticacion')
 
 // ======================
 // Coger Visitantes (GET)
@@ -23,7 +26,6 @@ router.get('/', function (req, res, next) {
             }
         )
 });
-
 
 // ======================
 // Crear Visitante (POST)
@@ -57,10 +59,13 @@ router.post('/', function (req, res, next) {
 })
 
 
+
+
+
 // ======================
 // Actualizar Visitante (PUT)
 // ======================
-router.put('/:id', function (req, res, next) {
+router.put('/:id', mdAutenticacion.verificaToken, function (req, res, next) {
 
     let id = req.params.id
 
@@ -106,6 +111,10 @@ router.put('/:id', function (req, res, next) {
 
 
 })
+
+
+
+
 
 
 // ======================
