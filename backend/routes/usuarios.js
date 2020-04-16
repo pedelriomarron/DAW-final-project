@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
-let Visitante = require('../models/visitante')
+let Visitante = require('../models/usuario')
 
 
 // ======================
@@ -103,6 +103,29 @@ router.put('/:id', function (req, res, next) {
         });
     })
 
+
+
+})
+
+
+// ======================
+// Borrar Visitante (delete)
+// ======================
+router.delete('/:id', function (req, res, next) {
+    let id = req.params.id
+    Visitante.findByIdAndRemove(id, (err, visitanteBorrado) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                mensaje: 'Error al borrar visitante',
+                errors: err
+            });
+        }
+        res.status(201).json({
+            ok: true,
+            visitante: visitanteBorrado,
+        });
+    })
 
 
 })

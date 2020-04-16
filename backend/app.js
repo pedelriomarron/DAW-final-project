@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var visitantesRouter = require('./routes/visitantes');
+var usuariosRouter = require('./routes/usuarios');
 
 var app = express();
 
@@ -31,11 +31,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //RUTAS
 app.use('/', indexRouter);
-app.use('/visitantes', visitantesRouter);
+app.use('/usuarios', usuariosRouter);
 
 
 // Conexión DB
-mongoose.connection.openUri('mongodb://midaw1:midaw1@ds119080.mlab.com:19080/daw_events', (err, res) => {
+mongoose.connection.openUri('mongodb://midaw1:midaw1@ds119080.mlab.com:19080/daw_events', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err, res) => {
     if (err) throw err;
     console.log('Base de datos: \x1b[32m%s\x1b[0m', 'online');
 });
