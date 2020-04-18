@@ -7,7 +7,15 @@ let mdAutenticacion = require('../middlewares/autenticacion')
 // Coger Eventos (GET)
 // ======================
 router.get('/', function (req, res, next) {
+
+    let desde = req.query.desde || 0
+    desde = Number(desde)
+
+
     Evento.find({}, '')
+        .skip(desde)
+        .limit(5)
+        .populate('usuario', ' username')
         .exec(
             (err, eventos) => {
                 if (err) res.status(500).json({
@@ -15,10 +23,15 @@ router.get('/', function (req, res, next) {
                     mensaje: 'Error cargando Evento',
                     errors: err
                 })
-                res.status(200).json({
-                    ok: true,
-                    eventos
+
+                Evento.count({}, (err, total) => {
+                    res.status(200).json({
+                        ok: true,
+                        total: total,
+                        eventos
+                    })
                 })
+
             }
         )
 });
