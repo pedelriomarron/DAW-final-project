@@ -8,6 +8,8 @@ var logger = require('morgan');
 let indexRouter = require('./routes/index');
 let usuariosRouter = require('./routes/usuarios');
 let loginRouter = require('./routes/login');
+let eventosRouter = require('./routes/eventos');
+
 
 var app = express();
 
@@ -34,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/login', loginRouter);
+app.use('/eventos', eventosRouter);
 
 
 // Conexión DB
