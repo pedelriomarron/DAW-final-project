@@ -22,7 +22,8 @@ const usuarioSchema = new Schema({
     password: { type: String, required: [true, 'La contraseña es requerida'] },
     lat: { type: Number },
     lon: { type: Number },
-    role: { type: String, required: true, default: 'VISITANTE_ROLE', enum: roles }
+    role: { type: String, required: true, default: 'VISITANTE_ROLE', enum: roles },
+    activate: { type: Boolean, default: false }
 })
 
 
